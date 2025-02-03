@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="buttons">
+      <button class="temp-btn">temperature</button>
+      <button class="wind-btn">wind</button>
+      <button class="cloudy-btn">cloudy</button>
+    </div>
+    <div class="wrapper">
+      <div id="container">
+        <div id="map-container"></div>
+      </div>
+      <div id="wind-container"></div>
+
+      <div id="cloud-container"></div>
+    </div>
+
+    <!-- js fayllar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="/libs/dataworldmap.min.js"></script>
+
+    <script src="./index.js" type="module"></script>
+    <script src="./cloud.js" type="module"></script>
+    <script src="./wind.js" type="module"></script>
+
+    <!-- <script src="./js/main.js" type="module"></script> -->
+    <!-- <script src="./js/control.js" type="module"></script> -->
+
+    <!-- js fayllar -->
+  </body>
+</html>
