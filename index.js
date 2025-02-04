@@ -5,7 +5,7 @@
 
 const apiKey = "77595974f86e45e58e2191614252901";
 const city = "Tashkent";
-const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=bulk`;
+const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=bulk`;
 
 export const cloudColors = {
   0: "#FFF9C4",
@@ -273,11 +273,11 @@ const container = document.querySelector("#container");
 const windContainer = document.querySelector("#wind-container");
 const cloudContainer = document.querySelector("#cloud-container");
 
-container.classList.add("block");
-container.classList.remove("hidden");
+// container.classList.add("block");
+// container.classList.remove("hidden");
 
-windContainer.classList.add("hidden");
-cloudContainer.classList.add("hidden");
+// windContainer.classList.add("hidden");
+// cloudContainer.classList.add("hidden");
 
 tempBtn.addEventListener("click", () => {
   container.classList.add("block");
