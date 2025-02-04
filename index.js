@@ -1,8 +1,55 @@
 //
-// import { useState } from "react";
+
+// import { getWindKey, windColors } from "./wind";
+// import { cloudColors, getCloudKey } from "./cloud";
+
 const apiKey = "77595974f86e45e58e2191614252901";
 const city = "Tashkent";
 const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=bulk`;
+
+export const cloudColors = {
+  0: "#FFF9C4",
+  10: "#FFF176",
+  30: "#E0E0E0",
+  60: "#9E9E9E",
+  90: "#616161"
+};
+
+export function getCloudKey(cloud) {
+  if (cloud >= 0 && cloud <= 10) {
+    return "USUAL";
+  } else if (cloud > 10 && cloud <= 30) {
+    return "USUAL1";
+  } else if (cloud > 30 && cloud <= 60) {
+    return "NORMAL";
+  } else if (cloud > 60 && cloud <= 90) {
+    return "DARKCLOUD";
+  }
+
+  return "DARKCLOUD1";
+}
+
+export const windColors = {
+  0: "#E0F7FA",
+  20: "#B2EBF2",
+  40: "#4DD0E1",
+  60: "#0288D1",
+  61: "#01579B"
+};
+
+export function getWindKey(wind) {
+  if (wind >= 0 && wind <= 10) {
+    return "SLOW";
+  } else if (wind > 10 && wind <= 20) {
+    return "SLOW1";
+  } else if (wind > 20 && wind <= 40) {
+    return "FAST";
+  } else if (wind > 40 && wind <= 60) {
+    return "FAST1";
+  }
+
+  return "VERYFAST";
+}
 
 const iataCodes = {
   USA: "USA",
@@ -143,17 +190,27 @@ fetch(url, {
     console.log(data);
     const { bulk } = data;
     const countriesJSON = {};
+    const countriesJSONWind = {};
+    const countriesJSONCloud = {};
 
     bulk.forEach(({ query: { location, current } }) => {
       countriesJSON[iataCodes[location.country]] = {
         fillKey: getFillKeyTemp(current.temp_c)
         // numberOfThings: current.temp_c
       };
+
+      countriesJSONWind[iataCodes[location.country]] = {
+        fillKey: getWindKey(current.wind_kph)
+      };
+
+      countriesJSONCloud[iataCodes[location.country]] = {
+        fillKey: getCloudKey(current.cloud)
+      };
     });
 
     console.log(countriesJSON);
 
-    var map = new Datamap({
+    new Datamap({
       element: document.getElementById("container"),
       fills: {
         HIGH: temperatureColors[10],
@@ -172,6 +229,38 @@ fetch(url, {
       },
       data: countriesJSON
     });
+
+    new Datamap({
+      element: document.getElementById("wind-container"),
+      fills: {
+        SLOW: windColors[0],
+        SLOW1: windColors[20],
+        FAST: windColors[40],
+        FAST1: windColors[60],
+
+        VERYFAST: windColors[61],
+
+        UNKNOWN: "rgb(0,0,0)",
+        defaultFill: "#DCDCDC"
+      },
+      data: countriesJSONWind
+    });
+
+    new Datamap({
+      element: document.getElementById("cloud-container"),
+      fills: {
+        USUAL: cloudColors[0],
+        USUAL1: cloudColors[10],
+        NORMAL: cloudColors[30],
+
+        DARKCLOUD: cloudColors[60],
+        DARKCLOUD1: cloudColors[90],
+
+        UNKNOWN: "rgb(0,0,0)",
+        defaultFill: "#63ec6e"
+      },
+      data: countriesJSONCloud
+    });
   })
   .catch((error) => console.error("Xatolik:", error));
 
@@ -183,6 +272,12 @@ const cloudyBtn = document.querySelector(".cloudy-btn");
 const container = document.querySelector("#container");
 const windContainer = document.querySelector("#wind-container");
 const cloudContainer = document.querySelector("#cloud-container");
+
+container.classList.add("block");
+container.classList.remove("hidden");
+
+windContainer.classList.add("hidden");
+cloudContainer.classList.add("hidden");
 
 tempBtn.addEventListener("click", () => {
   container.classList.add("block");

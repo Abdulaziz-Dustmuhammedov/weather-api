@@ -95,7 +95,7 @@ const body = {
   ]
 };
 
-const cloudColors = {
+export const cloudColors = {
   0: "#FFF9C4",
   10: "#FFF176",
   30: "#E0E0E0",
@@ -103,7 +103,7 @@ const cloudColors = {
   90: "#616161"
 };
 
-function getCloudKey(cloud) {
+export function getCloudKey(cloud) {
   if (cloud >= 0 && cloud <= 10) {
     return "USUAL";
   } else if (cloud > 10 && cloud <= 30) {

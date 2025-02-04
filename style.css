@@ -195,8 +195,10 @@ body {
 #wind-container {
   width: 1000px;
   height: 500px;
+  /* display: none; */
 }
 #cloud-container {
   width: 1000px;
   height: 500px;
+  /* display: none; */
 }

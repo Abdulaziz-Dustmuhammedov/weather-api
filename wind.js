@@ -95,7 +95,7 @@ const body = {
   ]
 };
 
-const windColors = {
+export const windColors = {
   0: "#E0F7FA",
   20: "#B2EBF2",
   40: "#4DD0E1",
@@ -103,7 +103,7 @@ const windColors = {
   61: "#01579B"
 };
 
-function getWindKey(wind) {
+export function getWindKey(wind) {
   if (wind >= 0 && wind <= 10) {
     return "SLOW";
   } else if (wind > 10 && wind <= 20) {
